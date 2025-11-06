@@ -1,194 +1,286 @@
-# README: YouTube Recommender System Analysis
+# README: Etsy Recommender System Analysis
 
 ## 📊 Project Overview
 
-This project provides a comprehensive analysis of YouTube's recommendation system, examining its architecture, algorithms, and effectiveness through the lens of scenario design and reverse engineering. The analysis synthesizes insights from industry research on collaborative filtering and content-based recommendation approaches to evaluate one of the world's most sophisticated recommender systems.
+This project provides a comprehensive analysis of Etsy's recommendation system, examining how the platform serves a unique two-sided marketplace of independent sellers and conscious consumers. Through scenario design analysis and hands-on reverse engineering, this study evaluates how Etsy's algorithms balance personalization with discovery in a marketplace built on uniqueness and craftsmanship.
 
 ## 🎯 Project Purpose
 
-As part of my Master's in Data Science coursework at CUNY SPS, this project demonstrates:
+As part of my Master's in Data Science coursework at CUNY SPS (DATA 643 - Recommender Systems), this project demonstrates:
 
-- **Critical analysis** of production-scale machine learning systems
-- **Application of recommender system theory** to real-world implementations
-- **Strategic thinking** about algorithm design tradeoffs and improvements
-- **Technical communication** skills for data science audiences
+- **Scenario design thinking** for multi-stakeholder platforms (buyers AND sellers)
+- **Reverse engineering** of production recommendation systems through interface observation
+- **Strategic analysis** of content-based vs. collaborative filtering tradeoffs
+- **User-centered design thinking** for recommendation improvements
+- **Technical communication** skills for data science and product audiences
 
-This analysis is particularly relevant for roles in personalization, machine learning, and data science at companies like Netflix, Meta, and other tech organizations that rely on large-scale recommendation engines.
+This analysis is particularly relevant for roles in personalization, machine learning, and marketplace optimization at e-commerce companies, two-sided platforms, and tech organizations building recommendation engines.
+
+## 🎨 Why Etsy?
+
+Unlike traditional e-commerce giants like Amazon, Etsy presents unique recommendation challenges:
+
+- **Inventory uniqueness**: Many items are one-of-a-kind or limited quantity
+- **Aesthetic diversity**: Highly subjective style preferences matter more than popularity
+- **Two-sided optimization**: Must serve both buyer discovery AND seller visibility goals
+- **Small seller ecosystem**: Algorithms must prevent winner-take-all dynamics
+- **Emotional connection**: Buyers value authenticity, craft stories, and supporting artisans
+
+These characteristics make Etsy an ideal case study for understanding how recommendation systems adapt to specialized marketplaces beyond mass retail.
 
 ## 📁 Repository Structure
 
 ```
-youtube-recommender-analysis/
+etsy-recommender-analysis/
 │
 ├── README.md                          # This file
-├── youtube_analysis.Rmd               # Main R Markdown analysis document
-├── youtube_analysis.html              # Rendered HTML output
+├── etsy_analysis.Rmd                  # Main R Markdown analysis document
+├── etsy_analysis.html                 # Rendered HTML output
 │
-├── references/
-│   ├── amazon_item_to_item_CF.pdf    # Amazon collaborative filtering paper
-│   └── nyt_recommendation_blog.pdf    # NYT recommendation system blog post
+├── Etsy/                              # Screenshots from reverse engineering
+│   ├── item_for_cart.png             # Item added to cart
+│   ├── item_in_carousel.png          # Same item appearing in recommendations
+│   └── Backpacks_in_recommender.png  # "Picks inspired by your shopping"
 │
-└── images/                            # Screenshots and diagrams (if applicable)
-    └── youtube_interface_examples/
+└── references/
+    ├── amazon_item_to_item_CF.pdf    # Amazon collaborative filtering paper
+    └── nyt_recommendation_blog.pdf    # NYT recommendation system blog post
 ```
 
 ## 🔍 Analysis Framework
 
-### 1. Scenario Design Analysis
+### 1. Scenario Design Analysis (Dual Perspective)
 
-Examines YouTube's recommendation system from two perspectives:
+**Organization (Etsy):**
+- Balancing marketplace health between buyers and sellers
+- Key metrics: GMV (Gross Merchandise Value), conversion rates, seller success
+- Platform sustainability through fair seller visibility
 
-**Organization (YouTube/Google):**
-- Target users and stakeholder goals
-- Key performance metrics (watch time, session duration, CTR)
-- Business objectives and success criteria
+**Buyers (Primary Stakeholders):**
+- **Demographics**: Gift shoppers, home decorators, craft enthusiasts, conscious consumers
+- **Goals**: Discover unique items, find perfect gifts, support small businesses
+- **Behavioral patterns**: Browse-heavy, inspiration-seeking, aesthetic-driven
 
-**Customers (Viewers & Creators):**
-- User segments and their diverse needs
-- Content discovery goals
-- Value proposition and pain points
+**Sellers (Secondary Stakeholders):**
+- **Profile**: Solo entrepreneurs, side hustlers, small business owners, vintage curators
+- **Goals**: Get discovered, generate consistent sales, build customer relationships
+- **Pain points**: Visibility in saturated categories, algorithm dependency, thin margins
 
-### 2. Reverse Engineering
+### 2. Reverse Engineering Methodology
 
-Reconstructs YouTube's algorithmic approach through:
-- **Interface observation**: Homepage feed, "Up Next", trending sections
-- **Technical inference**: Two-stage ranking system, similarity computations
-- **Public documentation**: Published research papers and engineering blogs
-- **Comparative analysis**: Similarities to Amazon's item-to-item CF and NYT's CTM
+**Hands-On Observation:**
+- Created fresh user account to observe cold start behavior
+- Documented timeline: Personalized recommendations appeared **within 10 minutes**
+- Tracked how interactions (favorites, cart adds, browsing) influenced recommendations
+- Tested refresh behavior: Seasonal content prioritized over personalized recommendations
+- Captured screenshots showing recommendation evolution
 
-### 3. Recommendations for Improvement
+**Key Findings:**
+- **Fast personalization**: Two carousels ("Dive back into these 10 finds" and "Picks inspired by your shopping") appeared after brief browsing
+- **Dynamic reordering**: Favoriting items changed carousel ordering on refresh
+- **Seasonal prioritization**: Holiday items moved to top after page refresh
+- **Session-based adaptation**: Active browsing triggered more personalized recommendations
 
-Strategic suggestions covering:
-- Technical enhancements (cold start, diversity, scalability)
-- User experience improvements (transparency, control, feedback)
-- Ethical considerations (filter bubbles, creator fairness, wellbeing)
+### 3. Algorithmic Architecture (Inferred)
+
+**Primary Approach: Content-Based Filtering (80%)**
+
+Rationale: Etsy's marketplace thrives on aesthetic uniqueness, making content attributes more valuable than collaborative popularity signals.
+
+**Content-Based Features:**
+- "More Like This" recommendations based on:
+  - Visual similarity (color palettes, design aesthetic)
+  - Material attributes (wood, metal, fabric, vintage)
+  - Style clustering (bohemian, minimalist, industrial)
+  - Price range matching
+- Seasonal/occasion detection from search patterns
+- Cross-category aesthetic connections (minimalist jewelry → minimalist home decor)
+- Intentional serendipity (15% unexpected items to prevent filter bubbles)
+
+**Secondary Approach: Collaborative Filtering (20%)**
+
+Used for:
+- "Shoppers Like You Also Bought" recommendations
+- Cold start support for new users
+- Trend validation across marketplace
+- Popular items within niche categories
+
+**Why This Balance Works:**
+Content-based filtering respects Etsy's uniqueness while giving sellers with niche products fair visibility, avoiding the rich-get-richer dynamics of pure collaborative filtering.
+
+### 4. Recommendations for Improvement
+
+**User Control & Transparency:**
+- **Interest selection interface**: Let users explicitly declare style preferences at onboarding
+- **Explicit feedback mechanisms**: Thumbs up/down or "Show me more/less like this" buttons
+- **Gift Mode toggle**: Separate gift browsing from personal preference profile
+
+**Discovery & Fairness:**
+- **"Discover New Sellers" option**: Temporarily prioritize small/new shops
+- **Serendipity controls**: Let users adjust exploration vs. exploitation balance
+
+**Technical Improvements:**
+- **Stable recommendations**: Reduce drastic algorithm changes on page refresh
+- **Session continuity**: Allow users time to review recommendations before reordering
 
 ## 🔑 Key Concepts & Terminology
 
 ### From Amazon's Item-to-Item Collaborative Filtering:
-- **Collaborative filtering**: User-to-user vs. item-to-item approaches
-- **Similar-items table**: Offline precomputation of video similarities
-- **Scalability**: Computational complexity (O(NM) vs. O(N²M))
-- **Offline vs. online computation**: Separating expensive calculations from real-time serving
-- **Sparse vectors**: Handling users who've watched tiny fraction of catalog
+- **Item-to-item similarity**: Matching products based on co-purchase patterns
+- **Scalability**: Handling millions of unique items efficiently
+- **Offline vs. online computation**: Pre-computing similarities vs. real-time ranking
+- **Sparse user vectors**: Most users interact with tiny fraction of catalog
 
 ### From NYT's Collaborative Topic Modeling:
-- **Content-based filtering**: Using video metadata for cold start
-- **Hybrid approaches**: Combining collaborative and content signals
-- **Latent Dirichlet Allocation (LDA)**: Topic modeling for content understanding
-- **Fresh content problem**: Recommending newly uploaded videos
-- **Serendipitous recommendations**: Balancing relevance with discovery
+- **Content-based filtering**: Using item attributes (not just user behavior)
+- **Hybrid approaches**: Combining content features with collaborative signals
+- **Cold start problem**: Recommending new items without interaction history
+- **Serendipitous recommendations**: Intentional introduction of unexpected items
+- **Fresh content handling**: New listings added daily by thousands of sellers
 
-### YouTube-Specific Concepts:
-- **Two-stage ranking**: Candidate generation → personalized ranking
-- **Watch time optimization**: Primary engagement metric
-- **Multi-objective optimization**: Balancing multiple business goals
-- **Context awareness**: Time, device, session patterns
-- **Filter bubbles**: Over-personalization risks
+### Etsy-Specific Concepts:
+- **Aesthetic-based matching**: Style/visual similarity over popularity
+- **Two-sided marketplace optimization**: Balancing buyer and seller goals
+- **Uniqueness challenge**: Many items are one-of-a-kind or limited inventory
+- **Small seller visibility**: Preventing platform concentration on top sellers
+- **Session-based personalization**: Rapid adaptation within single browsing session
 
-## 🛠️ Technologies & Methods
+## 🛠️ Methodology
 
-- **R Markdown**: Document creation and reproducible analysis
-- **Scenario Design**: Framework for stakeholder analysis
-- **Algorithm Analysis**: Computational complexity and tradeoff evaluation
-- **Comparative Methods**: Benchmarking against documented approaches
+- **Observational research**: Hands-on platform interaction as new user
+- **Scenario design framework**: Multi-stakeholder analysis
+- **Comparative analysis**: Benchmarking against documented approaches (Amazon, NYT)
+- **Interface documentation**: Screenshot capture and annotation
+- **Behavioral tracking**: Timeline of personalization emergence
 
 ## 📚 Key References
 
 1. **Linden, G., Smith, B., & York, J.** (2003). "Amazon.com Recommendations: Item-to-Item Collaborative Filtering." *IEEE Internet Computing*, 76-80.
 
-2. **Spangher, A.** (2015). "Building the Next New York Times Recommendation Engine." *The New York Times Open Blog*. Retrieved from http://open.blogs.nytimes.com
+2. **Spangher, A.** (2015). "Building the Next New York Times Recommendation Engine." *The New York Times Open Blog*.
 
-3. **Covington, P., Adams, J., & Sargin, E.** (2016). "Deep Neural Networks for YouTube Recommendations." *Proceedings of the 10th ACM Conference on Recommender Systems*, 191-198.
+3. **Etsy Engineering Blog**: https://www.etsy.com/codeascraft/
 
-4. **Davidson, J., et al.** (2010). "The YouTube Video Recommendation System." *Proceedings of the Fourth ACM Conference on Recommender Systems*, 293-296.
+4. **Etsy Search & Discovery Team publications** on marketplace ranking and personalization
 
-## 💡 Key Findings (Summary)
+## 💡 Key Findings Summary
 
-**Strengths of YouTube's System:**
-- Effective personalization at massive scale (billions of users)
-- Strong cold start handling through content-based features
-- Multiple recommendation surfaces for different contexts
-- Real-time adaptation to user behavior
+**Strengths of Etsy's System:**
+- ✅ **Rapid personalization**: Meaningful recommendations within 10 minutes of browsing
+- ✅ **Content-focused approach**: Respects aesthetic diversity and uniqueness
+- ✅ **Multiple recommendation surfaces**: Carousels, related items, seasonal promotions
+- ✅ **Balance of signals**: Mix of personal preference and seasonal trends
 
 **Areas for Improvement:**
-- Enhanced transparency about recommendation logic
-- Better mitigation of filter bubble effects
-- Improved fairness for smaller creators
-- Balance between watch time and user satisfaction metrics
+- ⚠️ **Over-aggressive refresh**: Algorithm changes too drastically on page reload
+- ⚠️ **Limited user control**: No explicit feedback or preference adjustment
+- ⚠️ **Gift browsing contamination**: Gift shopping affects personal recommendations
+- ⚠️ **New seller visibility**: Unclear how small shops compete for discovery
+- ⚠️ **Transparency**: No explanations for why items are recommended
+
+**Strategic Opportunities:**
+- 🎯 Add explicit interest onboarding for better cold start
+- 🎯 Implement Gift Mode to separate shopping contexts
+- 🎯 Create "Discover New Sellers" feature for marketplace health
+- 🎯 Provide feedback mechanisms (thumbs up/down) for active learning
+- 🎯 Stabilize recommendations across page refreshes
 
 ## 👤 Author
 
-**Candace**  
+**Candace Grant**  
 MS Data Science Candidate | CUNY School of Professional Studies  
-Multi-subject teacher at Academics West (Biology, Chemistry, Physics, Coding)
+Multi-subject teacher at Academics West (Biology, Chemistry, Physics, Introduction to Coding)
 
-*Building expertise in predictive analytics, machine learning, and recommender systems for roles in data science and personalization at leading tech companies.*
+**Background:**  
+As an educator teaching multiple subjects across grade levels, I understand the importance of personalization that respects individual preferences while encouraging discovery—similar to how Etsy must balance showing buyers what they love while exposing them to new artisans and styles.
 
-## 🔗 Connect
-
-- **GitHub**: [Your GitHub Profile]
-- **LinkedIn**: [Your LinkedIn Profile]
-- **Portfolio**: [Your Portfolio Site]
-
-## 📝 Course Information
+## 🎓 Course Information
 
 **Course**: DATA 643 - Recommender Systems  
 **Institution**: CUNY School of Professional Studies  
 **Semester**: Fall 2024  
-**Assignment**: Discussion 1 - Scenario Design & Reverse Engineering
-
-## 📄 License
-
-This project is created for educational purposes as part of graduate coursework. Referenced papers and materials are credited to their respective authors.
-
-## 🙏 Acknowledgments
-
-- Amazon.com research team for pioneering item-to-item collaborative filtering
-- New York Times engineering team for documenting their CTM implementation
-- YouTube/Google for published research on recommendation systems
-- CUNY SPS faculty for course guidance and feedback
-
----
+**Assignment**: Discussion 1 - Scenario Design & Reverse Engineering  
+**Date**: November 6, 2025
 
 ## 📖 How to View This Analysis
 
 ### Option 1: View HTML Output (Recommended)
-1. Download `youtube_analysis.html`
+1. Download `etsy_analysis.html`
 2. Open in any web browser
-3. Navigate through sections using the table of contents
+3. Interactive table of contents for easy navigation
 
 ### Option 2: Compile from Source
 ```r
 # Install required packages
-install.packages("rmarkdown")
+install.packages(c("rmarkdown", "knitr"))
 
 # Render the R Markdown file
-rmarkdown::render("youtube_analysis.Rmd")
+rmarkdown::render("etsy_analysis.Rmd")
 ```
 
-### Option 3: Read on GitHub
-The R Markdown file can be viewed directly on GitHub, though formatting may be limited.
+### Option 3: Read R Markdown on GitHub
+The `.Rmd` file can be viewed directly, though screenshots may render better in HTML.
 
----
+## 🔗 Project Highlights
+
+**Technical Skills Demonstrated:**
+- Recommender system algorithm analysis (content-based vs. collaborative filtering)
+- User research and behavioral observation
+- Multi-stakeholder scenario design
+- Interface reverse engineering
+- Strategic product recommendations
+
+**Business Acumen:**
+- Two-sided marketplace dynamics
+- Balancing competing stakeholder needs
+- Ethical considerations (seller fairness, filter bubbles)
+- User experience optimization
+
+**Communication:**
+- Technical writing for data science audiences
+- Visual documentation (screenshots with annotations)
+- Clear explanation of complex algorithms
+- Actionable improvement recommendations
 
 ## 🔄 Project Status
 
-**Current Version**: 1.0  
-**Status**: Complete  
-**Last Updated**: November 2024
+**Status**: ✅ Complete  
+**Version**: 1.0  
+**Last Updated**: November 6, 2025
 
-**Future Enhancements Considered:**
-- Comparative analysis with Netflix's recommendation system
-- Deeper dive into neural network architectures (deep learning for recommendations)
-- Quantitative analysis using public YouTube API data
+**Potential Extensions:**
+- Quantitative analysis using Etsy's public API
 - A/B testing framework design for recommendation improvements
+- Comparative analysis: Etsy vs. Amazon vs. specialized marketplaces
+- Deep dive into visual similarity algorithms for aesthetic matching
+- Seller perspective analysis: How do algorithms affect small business success?
+
+## 🌟 Why This Project Matters
+
+Etsy represents a different paradigm in e-commerce recommendations:
+
+- **Not just about scale**: Algorithms must serve uniqueness, not just efficiency
+- **Ethical considerations**: Fair visibility for small sellers vs. pure optimization
+- **Aesthetic intelligence**: Visual and stylistic understanding matters more than popularity
+- **Community impact**: Recommendations affect livelihoods of independent artisans
+
+Understanding how to build recommendation systems for specialized, values-driven marketplaces is increasingly important as consumers seek alternatives to mass retail and as platforms balance growth with community health.
+
+## 📧 Connect & Discuss
+
+Interested in discussing:
+- Two-sided marketplace recommendation strategies
+- Content-based vs. collaborative filtering tradeoffs
+- Visual similarity and aesthetic matching algorithms
+- Ethical considerations in recommendation system design
+- Small business visibility in algorithmic marketplaces
+
 
 ---
 
-## 📧 Questions or Feedback?
+## 📄 License
 
-Feel free to open an issue or reach out at aicoaching2025@gmail.com directly. I'm always interested in discussing recommender systems, machine learning at scale, and personalization algorithms!
+This project is created for educational purposes as part of graduate coursework. All screenshots are used for academic analysis under fair use. Etsy is a trademark of Etsy, Inc.
 
 ---
 
