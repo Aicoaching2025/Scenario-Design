@@ -1,0 +1,238 @@
+---
+title: "Etsy Recommender System: Scenario Design Analysis"
+author: "Candace Grant"
+date: "November 6, 2025"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+    highlight: tango
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1 Who are Etsy's Target Users?
+Etsy's target users on the platform are buyers and sellers. Their demographics, psychographic profile and behavioral patterns are shown below.
+
+### Main Group: Buyers 
+
+**Demographics & Characteristics:**
+
+- Gift Shoppers - Looking for unique, personalized presents for special occasions
+- Home Decorators - Seeking handmade, vintage, or custom decor items
+- Craft Enthusiasts - Shopping for supplies, materials, and tools
+- Wedding/Event Planners - Finding custom invitations, decorations, favors
+- Fashion Shoppers - Seeking one-of-a-kind clothing, jewelry, accessories
+- Vintage Collectors - Hunting for antique and vintage items
+- Conscious Consumers - Preferring handmade/artisan goods over mass-produced items
+
+
+**Psychographic Profile:**
+
+- Value uniqueness and authenticity
+- Appreciate craftsmanship and artisan work
+- Often willing to pay premium for quality/customization
+- Seek personal connection to products and makers
+- May have specific aesthetic preferences (boho, minimalist, vintage, etc.)
+
+
+**Behavioral Patterns:**
+
+- Browse-heavy behavior (inspiration shopping)
+- May shop with specific intent OR casually discover
+- Often return for repeat purchases from favorite sellers
+- Engage with reviews and seller stories
+
+
+
+### Secondary Group: Sellers 
+
+**Demographics & Characteristics:**
+
+- Small Business Owners - Operating from home studios, small workshops, or craft rooms
+- Solo Entrepreneurs - Often one-person operations managing all aspects of their business
+-   Side Hustlers - Maintaining Etsy shops alongside full-time jobs or other commitments
+- Creative Professionals   - Artists, crafters, designers turning their passion into income
+- Vintage Curators - Collectors who resell carefully sourced vintage items
+- Craft Supply Sellers - Providing materials for other makers
+- Age Range - Diverse, from young makers (20s-30s) to retirees pursuing creative passions
+- Scale Varies - From hobbyists making occasional sales to full-time shops with employees
+
+
+**Psychographic Profile:**
+
+- Passionate about their craft and creative process
+- Entrepreneurial mindset with varying business sophistication
+- Value direct customer relationships and feedback
+- Pride in craftsmanship and product quality
+- Community-oriented (see Etsy as collective of artisans, not just marketplace)
+- Often have strong personal brand/aesthetic identity
+- May struggle with work-life balance (making + marketing + fulfillment)
+
+  
+**Technical Capabilities:**
+
+- Range from tech-savvy to basic digital literacy
+- May not understand SEO, algorithms, or data analytics deeply
+- Rely on Etsy's platform features for visibility
+- Often learning business/marketing skills on the go
+
+
+**Business Context:**
+
+- Dependent on platform traffic and discoverability
+- Limited marketing budgets compared to large retailers
+- Compete with thousands of similar sellers
+- Success heavily influenced by Etsy's recommendation algorithms
+- Need consistent sales to justify time investment
+- May operate on thin profit margins
+
+
+**Pain Points:**
+
+- Getting discovered among millions of listings
+- Standing out in saturated categories
+- Understanding what drives visibility
+- Balancing production time with marketing efforts
+- Seasonal sales fluctuations
+
+
+
+```{r}
+
+```
+
+## Question 2: What are the main goals of buyers and sellers on Etsy?
+
+**Purchase-Oriented Goals:**
+  
+- Find a unique/personalized gift for a specific person or occasion
+- Discover items that perfectly match their aesthetic or style preferences
+- Purchase high-quality, handmade alternatives to mass-produced goods
+- Find customizable products (monogrammed, personalized colors/sizes)
+- Source specific craft supplies or materials for their own projects
+- Complete a purchase efficiently with confidence in quality
+
+**Discovery & Inspiration Goals:**
+  
+- Browse for creative inspiration (home decor ideas, gift ideas)
+- Discover new artisans and small businesses to support
+- Find unexpected items they didn't know existed
+- Explore trending or seasonal items
+- Stumble upon items that spark joy or creativity
+
+  
+**Emotional/Values-Based Goals:**
+- Support independent sellers and small businesses
+- Connect with the story behind handmade items
+- Feel good about ethical/sustainable purchasing choices
+- Own something truly unique that reflects their personality
+- Experience the satisfaction of finding "the perfect thing"
+
+  
+**Practical Goals:**
+- Compare options across multiple sellers
+- Verify quality through reviews and seller reputation
+- Stay within budget while finding quality items
+- Receive items in time for specific events/deadlines
+- Navigate the platform easily and efficiently
+
+---
+
+## Seller/Artisan Goals:
+
+**Visibility & Discovery Goals:**
+- Get discovered by the right buyers (those who appreciate their style/niche)
+- Appear in relevant search results and recommendation feeds
+- Stand out among competing sellers in their category
+- Reach buyers actively looking for their type of products
+- Increase shop visits and listing views
+
+**Sales & Revenue Goals:**  
+- Generate consistent sales to sustain their business
+- Convert browsers into buyers
+- Build a base of repeat customers
+- Maximize revenue during peak seasons (holidays, weddings)
+- Achieve financial goals (full-time income, supplemental income, hobby funding)
+- Maintain healthy profit margins after Etsy fees
+
+**Customer Relationship Goals:**  
+- Attract qualified leads (serious buyers, not just window shoppers)
+- Build loyal customer relationships
+- Receive positive reviews and feedback
+- Create satisfied customers who return and refer others
+- Communicate their brand story and values to aligned buyers
+
+**Business Growth Goals:** 
+- Scale their business sustainably
+- Expand product lines based on customer interest
+- Understand what products resonate with buyers
+- Compete effectively without racing to the bottom on price
+- Build reputation and authority in their niche
+
+**Operational Goals:**
+- Manage workload effectively (balance making + selling)
+- Reduce time spent on marketing/promotion
+- Minimize returns and customer service issues through good matching
+- Plan inventory based on demand patterns
+- Achieve work-life balance as creative entrepreneurs
+
+---
+
+## Question 3: How can I help the buyers and sellers achieve their goals?
+
+### Primary Approach: Content-Based Filtering (80%)
+
+Etsy's marketplace thrives on uniqueness and individual aesthetic preferences, making content-based filtering the ideal primary recommendation strategy. This approach learns from what users browse, favorite, and purchase to match their personal style with items that share similar attributes—color palettes, materials, design aesthetics, and craftsmanship qualities.
+
+**Core Content-Based Features:**
+
+- "More Like This" Recommendations: When a buyer engages with an item, instantly suggest 5-10 visually and stylistically similar pieces matching on color, style, materials, price range, and design aesthetic
+
+- Seasonal & Occasion-Based Suggestions: Anticipate buyer needs by surfacing holiday-appropriate items weeks in advance, detect gift-giving intent through search patterns, and track emerging trends to connect early adopters with fresh pieces
+
+- Serendipity & Discovery: Intentionally include unexpected items (15% of recommendations) that are adjacent to but slightly outside typical preferences to balance comfort with surprise and prevent recommendation monotony
+
+- Aesthetic-Based Connections: Group items into style clusters (bohemian, minimalist, vintage, industrial) and enable cross-category discovery so buyers who love minimalist jewelry also discover minimalist home decor
+
+### Secondary Approach: Collaborative Filtering (20%)
+
+Collaborative patterns provide valuable supplementary signals through "Shoppers Like You Also Bought" recommendations, help new users without preference history, and validate which styles are resonating broadly across the marketplace.
+
+**Why This Balance Works for Etsy:** Content-based filtering respects what makes Etsy special—one-of-a-kind, handmade items that can't rely on bestseller popularity. By focusing on aesthetic attributes and style matching, the system helps buyers discover items that feel personally chosen for them while giving sellers with unique, niche products a fair chance to reach their ideal customers.
+
+
+## Reverse engineering Etsy.com
+
+- Visited Etsy as a new user and browsed items that caught my eye
+- Within **10 minutes**, two personalized recommendation carousels appeared on my homepage: "Dive back into these 10 finds" and "Picks inspired by your shopping"
+- After favoriting several items and refreshing the page, the carousel order dynamically changed
+- Seasonal items (holiday-themed products) moved to the top position after the refresh
+- My personalized recommendations based on browsing and favorites appeared as the top two carousels below the seasonal content
+- Content recommendations appear more user-focused during active browsing sessions, especially when items are added to the cart
+- Once the screen is refreshed, seasonal recommendations are prioritized over personalized content
+
+![Etsy Item for cart](Etsy/item_for_cart.png){width=80%}
+![Etsy Item Shows on Carousel hoem page](Etsy/item_in_carousel.png){width=80%}
+
+
+![Picks inspired by your shopping](Etsy/Backpacks_in_recommender.png){width=80%}
+
+## Specific recommendations 
+
+**Suggestions on how to improve the site's recommendation capabilities going forward.**
+
+
+- Include a section at the top where users can enter their interests and those selections should curate their home page.
+
+- Add a "Gift Mode" toggle that allows users to browse and receive recommendations for gift shopping without those interactions affecting their personal style profile and future recommendations.
+
+- Implement explicit feedback buttons (thumbs up/down or "Show me more/less like this") on recommended items so users can actively refine their preferences rather than relying solely on implicit signals.
+
+- Create a "Discover New Sellers" option that temporarily prioritizes recommendations from small or new shops the user hasn't purchased from before, helping both buyer discovery goals and seller visibility goals while preventing over-concentration on familiar sellers.
+
+- Do not update the algorithm so drastically when a user refreshes the page.Allow users to. spend time reviewing the latest recommendations.
